@@ -1,9 +1,14 @@
+:root
+{
+    font-family: sans-serif;
+}
+
 #game-frame
 {
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
+    top: 0rem;
+    left: 0rem;
+    right: 0rem;
+    bottom: 0rem;
     margin: auto;
     position: fixed;
     
@@ -37,4 +42,41 @@
     {
         font-size: 5vw;
     }
+}
+
+#game-scene
+{
+    top: 0rem;
+    left: 0rem;
+    right: 0rem;
+    bottom: 0rem;
+    position: absolute;
+    
+    background-size: 100%;
+    background-image: url("campfire.png");
+}
+
+#game-menu
+{
+    top: 0rem;
+    right: 0rem;
+    padding: 0.5rem;
+    position: absolute;
+    
+    color: #F0444D;
+}
+
+#text-box
+{
+    left: 0rem;
+    right: 0rem;
+    bottom: 0rem;
+    height: 2rem;
+    padding: 0.25rem 0.35rem;
+    position: absolute;
+    
+    font-size: 0.85rem;
+    
+    background-size: 100%;
+    background-image: url("textbox.png")
 }
