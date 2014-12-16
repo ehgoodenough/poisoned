@@ -1,0 +1,22 @@
+#text-box
+{
+    left: 0.25rem;
+    right: 0.25rem;
+    bottom: 0.25rem;
+    height: 1.925rem;
+    position: absolute;
+    padding: 0.25rem 0.35rem;
+    
+    color: #111;
+    font-size: 0.85rem;
+    font-family: goldfish, monospace;
+    
+    border-radius: 0.25rem;
+    
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("./images/text-box.png");
+    
+    transition-property: opacity;
+    transition-duration: 0.5s;
+}
