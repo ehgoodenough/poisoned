@@ -1,28 +1,72 @@
-var SceneData = {
-    "1.0": {
-        "mephistopheles": {
-            style: {
-                top: 8.5 + "rem",
-                left: 14.25 + "rem",
-                width: 1.25 + "rem",
-                height: 2 + "rem",
-                position: "absolute",
-                backgroundColor: "black"
-            },
-            onClick: function() {
-                //SceneActions.ChangeIndex("1.1")
-            }
-        }
+var Scene = function(actors) {
+    this.actors = actors || {}
+}
+
+Scene.prototype.getActors = function() {
+    return this.actors
+}
+
+var Actor = function(data) {
+    this.position = data.position || {
+        x: 0,
+        y: 0
+    }
+    this.size = data.size || {
+        width: 1,
+        height: 1
+    }
+    this.events = data.events || {
+        onClick: function() {}
     }
 }
 
-var SceneActions = Reflux.createActions([
+Actor.prototype.renderStyle = function() {
+    return {
+        position: "absolute",
+        left: this.position.x + "rem",
+        top: this.position.y + "rem",
+        width: this.size.width + "rem",
+        height: this.size.height + "rem",
+        backgroundColor: "black"
+    }
+}
+
+Actor.prototype.render = function(name) {
+    return (
+        <div key={name}
+             style={this.renderStyle()}
+             onClick={this.events.onClick}>
+        </div>
+    )
+}
+
+var SceneData = {
+    "1.0": new Scene({
+        "mephistopheles": new Actor({
+            position: {
+                y: 8.5,
+                x: 14.25
+            },
+            size: {
+                width: 1.25,
+                height: 2
+            },
+            events: {
+                onClick: function() {
+                    SceneActions.ChangeIndex("1.1")
+                }
+            }
+        })
+    })
+}
+
+var SceneReActions = Reflux.createActions([
     "ChangeIndex"
 ])
 
-var SceneStore = Reflux.createStore({
+var SceneReStore = Reflux.createStore({
     listenables: [
-        SceneActions
+        SceneReActions
     ],
     onChangeIndex: function(index) {
         this.state.index = index
@@ -36,30 +80,26 @@ var SceneStore = Reflux.createStore({
     }
 })
 
-var Scene = React.createClass({
+var SceneReClass = React.createClass({
     mixins: [
-        Reflux.connect(SceneStore)
+        Reflux.connect(SceneReStore)
     ],
     render: function() {
         var scene = SceneData[this.state.index]
-        console.log(scene)
+        var actors = scene.getActors()
         
-        
-        var actors = new Array()
-        for(var actor in scene) {
-            actors.push(
-                <div key={actor}
-                     style={scene[actor].style}
-                     onClick={scene[actor].onClick}>
-                </div>
+        var rendered_actors = new Array()
+        for(var index in actors) {
+            rendered_actors.push(
+                actors[index].render(index)
             )
         }
         return (
             <div className="scene">
-                {actors}
+                {rendered_actors}
             </div>
         )
     }
 })
 
-module.exports = Scene
+module.exports = SceneReClass
