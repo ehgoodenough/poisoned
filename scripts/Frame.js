@@ -1,5 +1,6 @@
 var SceneStore = require("./SceneStore")
 var Menu = require("./Menu")
+var SceneActions = require("./SceneActions")
 
 var Frame = React.createClass({
     mixins: [
@@ -7,11 +8,14 @@ var Frame = React.createClass({
     ],
     render: function() {
         return (
-            <div id="frame">
+            <div id="frame" onClick={this.onClick}>
                 {this.state.scene}
                 <Menu/>
             </div>
         )
+    },
+    onClick: function() {
+        SceneActions.ChangeState(1)
     }
 })
 
